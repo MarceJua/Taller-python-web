@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %} Mis Tareas - Taller Python Web {% endblock %}
+
+{% block content %}
+    <h1>Lista de Tareas</h1>
+    <p>Aquí puedes ver lo que tienes pendiente para hoy:</p>
+
+    <ul>
+        {% for tarea in lista %}
+            <li>{{ tarea }}</li>
+        {% else %}
+            <li>No tienes tareas pendientes. 🎉</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+    <a href="/" class="contrast">Volver al inicio</a>
+{% endblock %}

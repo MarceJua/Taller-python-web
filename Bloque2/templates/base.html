@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Taller Python Web {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <nav class="container">
+        <ul><li><strong>Taller Python Web</strong></li></ul>
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/tareas">Mis Tareas</a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        {% block content %} 
+        {% endblock %}
+    </main>
+</body>
+</html>

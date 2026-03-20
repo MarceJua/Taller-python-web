@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %} Inicio - Taller Python Web {% endblock %}
+
+{% block content %}
+    <h1>¡Hola {{ usuario }}!</h1>
+    <p>Bienvenido a tu organizador personal. Tienes tareas pendientes para hoy.</p>
+    
+    <form action="/saludo" method="POST">
+        <input type="text" name="nombre_usuario" placeholder="Dime tu nombre para saludarte" required>
+        <button type="submit">Enviar</button>
+    </form>
+{% endblock %}
