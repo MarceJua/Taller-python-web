@@ -1,0 +1,8 @@
+body {
+    background: #f7f7f9;
+}
+
+.task-done {
+    background: #f1fdf3;
+    text-decoration: none;
+}

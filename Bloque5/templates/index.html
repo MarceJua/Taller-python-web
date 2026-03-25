@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Lista de Tareas{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="h4 mb-3">Nueva tarea</h2>
+                <form method="POST" action="{{ url_for('add_task') }}">
+                    <div class="mb-3">
+                        <label class="form-label">Título</label>
+                        <input type="text" name="title" class="form-control" placeholder="Ej. Estudiar Flask" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea name="description" class="form-control" rows="4" placeholder="Detalles opcionales"></textarea>
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit">Guardar tarea</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Tareas guardadas</h2>
+            <span class="badge text-bg-secondary">{{ tasks|length }}</span>
+        </div>
+
+        {% if tasks %}
+            <div class="list-group">
+                {% for task in tasks %}
+                    <div class="list-group-item {% if task.done %}task-done{% endif %}">
+                        <div class="d-flex justify-content-between align-items-start gap-3">
+                            <div class="flex-grow-1">
+                                <div class="d-flex align-items-center gap-2">
+                                    <h3 class="h5 mb-0">{{ task.title }}</h3>
+                                    {% if task.done %}
+                                        <span class="badge text-bg-success">Terminada</span>
+                                    {% else %}
+                                        <span class="badge text-bg-warning">Pendiente</span>
+                                    {% endif %}
+                                </div>
+                                {% if task.description %}
+                                    <p class="mb-2 mt-2">{{ task.description }}</p>
+                                {% endif %}
+                                <small class="text-muted">
+                                    Creada: {{ task.created_at|datetime_local }}
+                                </small>
+                            </div>
+
+                            <div class="d-flex flex-wrap gap-2">
+                                <form method="POST" action="{{ url_for('toggle_task', task_id=task._id) }}">
+                                    <button class="btn btn-sm btn-outline-success" type="submit">
+                                        {% if task.done %}Marcar pendiente{% else %}Marcar terminada{% endif %}
+                                    </button>
+                                </form>
+
+                                <a class="btn btn-sm btn-outline-primary" href="{{ url_for('edit_task', task_id=task._id) }}">Editar</a>
+
+                                <form method="POST" action="{{ url_for('delete_task', task_id=task._id) }}" onsubmit="return confirm('¿Deseas eliminar esta tarea?');">
+                                    <button class="btn btn-sm btn-outline-danger" type="submit">Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">Todavía no hay tareas registradas.</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
